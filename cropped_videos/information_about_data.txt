@@ -1,0 +1,3 @@
+Dataset of videos scraped from YouTube.
+Contains professional golf players front facing swings cropped according to annotations from golfDB project to include 15 frames of golfer before 
+beginning of the swing and 15 after the end. 
