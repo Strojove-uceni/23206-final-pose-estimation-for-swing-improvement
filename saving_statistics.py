@@ -61,10 +61,10 @@ for filename in os.listdir(input_folder):
 
         # Set output file names
         csv_file_name = f'{os.path.splitext(filename)[0]}.csv'
-        output_video_name = f'{os.path.splitext(filename)[0]}_output.mp4'
+        #output_video_name = f'{os.path.splitext(filename)[0]}_output.mp4'
 
         csv_file_path = os.path.join(output_folder_csv, csv_file_name)
-        output_video_path = os.path.join(output_folder_videos, output_video_name)
+        #output_video_path = os.path.join(output_folder_videos, output_video_name)
 
         # set up media pipe - create two variables
         mp_drawing = mp.solutions.drawing_utils
@@ -75,9 +75,10 @@ for filename in os.listdir(input_folder):
             if view == 'front':
                 writer.writerow(["video_timestamp", "shoulders_inclination", "hips_inclination",
                                  "knee_angle", "pelvis_angle", "arm_angle",
-                                 "left_shoulder X", "left_shoulder Y",
                                  "right_shoulder X", "right_shoulder Y",
+                                 "left_shoulder X", "left_shoulder Y",
                                  "left_elbow X", "left_elbow Y",
+                                 "right_wrist X", "right_wrist Y",
                                  "left_wrist X", "left_wrist Y",
                                  "nose X", "nose Y",
                                  "left_hip X", "left_hip Y",
@@ -90,7 +91,7 @@ for filename in os.listdir(input_folder):
 
         cap = cv2.VideoCapture(file_path)
         fourcc = cv2.VideoWriter_fourcc(*'MP4V')
-        out = cv2.VideoWriter(output_video_path, fourcc, 30.0, (int(cap.get(3)), int(cap.get(4))))
+        #out = cv2.VideoWriter(output_video_path, fourcc, 30.0, (int(cap.get(3)), int(cap.get(4))))
 
         frame_number = 0
         with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as pose:
@@ -121,6 +122,7 @@ for filename in os.listdir(input_folder):
                     right_shoulder = landmarks[mp_pose.PoseLandmark.RIGHT_SHOULDER]
                     left_hip = landmarks[mp_pose.PoseLandmark.LEFT_HIP]
                     right_hip = landmarks[mp_pose.PoseLandmark.RIGHT_HIP]
+                    right_wrist = landmarks[mp_pose.PoseLandmark.RIGHT_WRIST]
                     left_wrist = landmarks[mp_pose.PoseLandmark.LEFT_WRIST]
                     nose = landmarks[mp_pose.PoseLandmark.NOSE]
                     right_knee = landmarks[mp_pose.PoseLandmark.RIGHT_KNEE]
@@ -147,9 +149,10 @@ for filename in os.listdir(input_folder):
                             # Write the data to the
                             writer.writerow([video_timestamp, shoulders_inclination, hips_inclination, 
                                              knee_angle, pelvis_angle, arm_angle,
-                                             int(left_shoulder.x* w), int(left_shoulder.y* h), 
                                              int(right_shoulder.x* w), int(right_shoulder.y* h),
+                                             int(left_shoulder.x* w), int(left_shoulder.y* h), 
                                              int(left_elbow.x * w), int(left_elbow.y * h),
+                                             int(right_wrist.x* w), int(right_wrist.y* h), 
                                              int(left_wrist.x* w), int(left_wrist.y* h), 
                                              int(nose.x* w), int(nose.y* h), 
                                              int(left_hip.x * w), int(left_hip.y * h),
@@ -199,7 +202,7 @@ for filename in os.listdir(input_folder):
                         cv2.line(image, (int(midpoint_x * w), int(midpoint_y * h)), (int(midpoint_x * w), int(midpoint_y * h) - 200), (255, 255, 255), 2)
 
                         # Write the frame into the file
-                        out.write(image)
+                        #out.write(image)
 
                         # Show the image
                         cv2.imshow('MediaPipe Pose', image)
@@ -214,7 +217,7 @@ for filename in os.listdir(input_folder):
                         mp_drawing.draw_landmarks(image, keypoints.pose_landmarks, mp_pose.POSE_CONNECTIONS)
 
                         # Write the frame into the file
-                        out.write(image)
+                        #out.write(image)
 
                         # Show the image
                         cv2.imshow('MediaPipe Pose', image)
@@ -229,7 +232,7 @@ for filename in os.listdir(input_folder):
 
         # Release the video capture and writer objects
         cap.release()
-        out.release()
+        #out.release()
 
         # Destroy all OpenCV windows
         cv2.destroyAllWindows()
