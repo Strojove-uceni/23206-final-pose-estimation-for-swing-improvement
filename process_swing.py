@@ -87,7 +87,7 @@ class Evaluator:
     def __init__(self, data_processor):
         self.data_processor = data_processor
         self.swing_part_indices = {'address': 0, 'top': 1, 'contact': 2}  # Indices for each swing part
-        self.head_point_address=[self.data_processor.data.nose_x.iloc[self.swing_part_indices['address']],self.data_processor.data.nose_y.iloc[self.swing_part_indices['address']]]
+        self.head_point_address=[self.data_processor.data.nose_y.iloc[self.swing_part_indices['address']],self.data_processor.data.nose_x.iloc[self.swing_part_indices['address']]]
         self.results={}
     def evaluate_all_swing_parts(self):
         """
@@ -110,6 +110,7 @@ class Evaluator:
         elif swing_part == 'contact':
             return self.evaluate_contact(data, swing_part_id)
 
+
     def evaluate_address(self, data, swing_part_id):
         results = {
             "correct_midpoint": int(data['midpoint_x'].iloc[swing_part_id] - data['left_wrist_x'].iloc[swing_part_id] < 0),
@@ -129,7 +130,7 @@ class Evaluator:
     def evaluate_contact(self, data, swing_part_id):
         head_point_current = np.array([data['nose_y'].iloc[swing_part_id], data['nose_x'].iloc[swing_part_id]])
         results = {
-            "correct_shoulder_ankle": int(data['left_ankle_x'].iloc[swing_part_id] - data['left_shoulder_x'].iloc[swing_part_id] < 0),
+            "correct_shoulder_ankle": int(data['left_ankle_x'].iloc[swing_part_id] - data['left_shoulder_x'].iloc[swing_part_id] >= 0),
             "correct_head": int(self.calculate_head_distance(head_point_current, self.head_point_address) <= 20),
             "correct_knee_angle": int(165 <= data['knee_angle'].loc[swing_part_id] <= 180),
             "correct_arm_angle": int(165 <= data['arm_angle'].iloc[swing_part_id] <= 180)
@@ -139,6 +140,7 @@ class Evaluator:
     @staticmethod
     def calculate_head_distance(head_point_current, head_point_address):
         return np.linalg.norm(np.array(head_point_current).flatten()- np.array(head_point_address).flatten())
+        
 
 
 
@@ -152,6 +154,29 @@ class VideoProcessor:
         self.data=data_processor.data
         self.correct=evaluator.evaluate_all_swing_parts()
         self.swing_part_indices = {'address': 0, 'top': 1, 'contact': 2}  # Indices for each swing part
+    
+    def print_swing_analysis(self):
+        messages = {
+            'correct_midpoint': 'WRONG: The arms should be positioned more to the left side of the center of feet.',
+            'correct_arm_angle': 'WRONG: Left arm should be approximately straight.',
+            'correct_pelvis': 'WRONG: Left ankle, left hip and right shoulder angle should be approximately 180 degrees.',
+            'correct_head':  'WRONG: The head should remain relatively still until contact.',
+            'correct_shoulder_ankle': 'WRONG: The shoulder should not go beyond the front foot.',
+            'correct_knee_angle': 'WRONG: The knee should not bend as much.'
+        }
+        # Iterate over each swing part and construct the analysis message
+        analysis = []
+        for swing_part, checks in self.correct.items():
+            part_analysis = [f"Swing part {swing_part.upper()}: "]
+            messages_list = []
+            for check, value in checks.items():
+                if value == 0:
+                    messages_list.append("-> " + messages[check])
+
+            if messages_list:
+                analysis.append("\n".join([part_analysis[0]] + messages_list))
+
+        print("\n\n".join(analysis))
 
     def save_frame(self):
 
@@ -210,7 +235,6 @@ class VideoProcessor:
             # self.plot_line(frame, (self.data['left_hip_x'].iloc[swing_part_id], self.data['left_hip_y'].iloc[swing_part_id]), (self.data['left_knee_x'].iloc[swing_part_id], self.data['left_knee_y'].iloc[swing_part_id]), evaluation_results['correct_knee_angle'])
             self.plot_line(frame, (self.data['left_hip_x'].iloc[swing_part_id], self.data['left_hip_y'].iloc[swing_part_id]), (self.data['left_ankle_x'].iloc[swing_part_id], self.data['left_ankle_y'].iloc[swing_part_id]), evaluation_results['correct_knee_angle'])
 
-
             self.plot_circle(frame, (self.data['left_ankle_x'].iloc[swing_part_id], self.data['left_ankle_y'].iloc[swing_part_id]), evaluation_results['correct_shoulder_ankle'])
             self.plot_line(frame, (self.data['left_ankle_x'].iloc[swing_part_id], self.data['left_ankle_y'].iloc[swing_part_id]), (self.data['left_ankle_x'].iloc[swing_part_id], self.data['left_ankle_y'].iloc[swing_part_id] - 200), evaluation_results['correct_shoulder_ankle'])
             
@@ -249,7 +273,10 @@ class VideoProcessor:
                 self.plot_circle(frame, (self.data['nose_x'].iloc[0], self.data['nose_y'].iloc[0]), evaluation_results['correct_head'], 20, 2)
             else:
                 self.plot_circle(frame, (self.data['nose_x'].iloc[0], self.data['nose_y'].iloc[0]), evaluation_results['correct_head'], 20, 2)
-
+            arm_angle_text = f'Arm Angle: {self.data["arm_angle"].iloc[swing_part_id]:.2f}'
+            self.plot_text(frame, arm_angle_text, (10, 120), evaluation_results['correct_arm_angle'])
+            self.plot_line(frame, (self.data['left_shoulder_x'].iloc[swing_part_id], self.data['left_shoulder_y'].iloc[swing_part_id]), (self.data['left_elbow_x'].iloc[swing_part_id], self.data['left_elbow_y'].iloc[swing_part_id]), evaluation_results['correct_arm_angle'])
+            self.plot_line(frame, (self.data['left_elbow_x'].iloc[swing_part_id], self.data['left_elbow_y'].iloc[swing_part_id]), (self.data['left_wrist_x'].iloc[swing_part_id], self.data['left_wrist_y'].iloc[swing_part_id]), evaluation_results['correct_arm_angle'])
 
         return frame
    
