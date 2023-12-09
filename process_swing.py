@@ -1,8 +1,4 @@
 import cv2 #opencv
-import mediapipe as mp
-import math
-import csv
-import datetime
 import pandas as pd
 import os
 import numpy as np
