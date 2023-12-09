@@ -54,7 +54,10 @@ class DataProcessor:
         address_frame=halfway_back_data['right_wrist_y'].idxmax()
 
         self.data=self.data.iloc[[max([address_frame.item()-4,0]), top_backswing_frame.item(), contact_frame.item()]]
+        # print(self.data)
+        self.data['index']=self.data.index
         self.data=self.data.reset_index(drop=True)
+
          
     
     def preprocess_data(self):
@@ -194,13 +197,19 @@ class VideoProcessor:
         elif swing_part == 'contact':
             shoulders_inclination_text = f'Shoulders inclination: {self.data["shoulders_inclination"].iloc[swing_part_id]:.2f}'
             self.plot_text(frame, shoulders_inclination_text, (10, 20), True)  # True for always yellow
+            self.plot_line(frame, (self.data['left_shoulder_x'].iloc[swing_part_id], self.data['left_shoulder_y'].iloc[swing_part_id]), (self.data['left_shoulder_x'].iloc[swing_part_id], self.data['left_shoulder_y'].iloc[swing_part_id]), True)
+
 
             hips_inclination_text = f'Hips inclination: {self.data["hips_inclination"].iloc[swing_part_id]:.2f}'
             self.plot_text(frame, hips_inclination_text, (10, 45), True)  # True for always yellow
-            
+            self.plot_line(frame, (self.data['left_hip_x'].iloc[swing_part_id], self.data['left_hip_y'].iloc[swing_part_id]), (self.data['left_hip_x'].iloc[swing_part_id], self.data['left_hip_y'].iloc[swing_part_id]), True)
+
 
             knee_angle_text = f'Knee Angle: {self.data["knee_angle"].iloc[swing_part_id]:.2f}'
             self.plot_text(frame, knee_angle_text, (10, 70), evaluation_results['correct_knee_angle'])
+            # self.plot_line(frame, (self.data['left_hip_x'].iloc[swing_part_id], self.data['left_hip_y'].iloc[swing_part_id]), (self.data['left_knee_x'].iloc[swing_part_id], self.data['left_knee_y'].iloc[swing_part_id]), evaluation_results['correct_knee_angle'])
+            self.plot_line(frame, (self.data['left_hip_x'].iloc[swing_part_id], self.data['left_hip_y'].iloc[swing_part_id]), (self.data['left_ankle_x'].iloc[swing_part_id], self.data['left_ankle_y'].iloc[swing_part_id]), evaluation_results['correct_knee_angle'])
+
 
             self.plot_circle(frame, (self.data['left_ankle_x'].iloc[swing_part_id], self.data['left_ankle_y'].iloc[swing_part_id]), evaluation_results['correct_shoulder_ankle'])
             self.plot_line(frame, (self.data['left_ankle_x'].iloc[swing_part_id], self.data['left_ankle_y'].iloc[swing_part_id]), (self.data['left_ankle_x'].iloc[swing_part_id], self.data['left_ankle_y'].iloc[swing_part_id] - 200), evaluation_results['correct_shoulder_ankle'])
@@ -218,16 +227,22 @@ class VideoProcessor:
             self.plot_line(frame, (self.data['left_elbow_x'].iloc[swing_part_id], self.data['left_elbow_y'].iloc[swing_part_id]), (self.data['left_wrist_x'].iloc[swing_part_id], self.data['left_wrist_y'].iloc[swing_part_id]), evaluation_results['correct_arm_angle'])
         
         elif swing_part == 'top':
-            print('yes')
 
             shoulders_inclination_text = f'Shoulders inclination: {self.data["shoulders_inclination"].iloc[swing_part_id]:.2f}'
-            self.plot_text(frame, shoulders_inclination_text, (10, 20), True)  # True for always green
+            self.plot_text(frame, shoulders_inclination_text, (10, 20), True) 
+            self.plot_line(frame, (self.data['left_shoulder_x'].iloc[swing_part_id], self.data['left_shoulder_y'].iloc[swing_part_id]), (self.data['left_shoulder_x'].iloc[swing_part_id], self.data['left_shoulder_y'].iloc[swing_part_id]), True)
 
             hips_inclination_text = f'Hips inclination: {self.data["hips_inclination"].iloc[swing_part_id]:.2f}'
-            self.plot_text(frame, hips_inclination_text, (10, 45), True)  # True for always yellow
+            self.plot_text(frame, hips_inclination_text, (10, 45), True)  
+            self.plot_line(frame, (self.data['left_hip_x'].iloc[swing_part_id], self.data['left_hip_y'].iloc[swing_part_id]), (self.data['left_hip_x'].iloc[swing_part_id], self.data['left_hip_y'].iloc[swing_part_id]), True)
+
 
             pelvis_angle_text = f'Pelvis Angle: {self.data["pelvis_angle"].iloc[swing_part_id]:.2f}'
             self.plot_text(frame, pelvis_angle_text, (10, 95), evaluation_results['correct_pelvis'])
+            self.plot_line(frame, (self.data['left_hip_x'].iloc[swing_part_id], self.data['left_hip_y'].iloc[swing_part_id]), (self.data['left_ankle_x'].iloc[swing_part_id], self.data['left_ankle_y'].iloc[swing_part_id]), evaluation_results['correct_pelvis'])
+            self.plot_line(frame, (self.data['left_hip_x'].iloc[swing_part_id], self.data['left_hip_y'].iloc[swing_part_id]), (self.data['right_shoulder_x'].iloc[swing_part_id], self.data['right_shoulder_y'].iloc[swing_part_id]), evaluation_results['correct_pelvis'])
+
+
             if self.data['nose_x'].iloc[swing_part_id]!=0 and self.data['nose_y'].iloc[swing_part_id]!=0:
                 self.plot_line(frame, (self.data['nose_x'].iloc[0], self.data['nose_y'].iloc[0]), (self.data['nose_x'].iloc[swing_part_id], self.data['nose_y'].iloc[swing_part_id]), evaluation_results['correct_head'])
                 self.plot_circle(frame, (self.data['nose_x'].iloc[swing_part_id], self.data['nose_y'].iloc[swing_part_id]), evaluation_results['correct_head'])
