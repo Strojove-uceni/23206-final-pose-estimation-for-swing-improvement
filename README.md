@@ -2,6 +2,8 @@
 
 # Swing Analyzer
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://github.com/Strojove-uceni/23206-final-pose-estimation-for-swing-improvement/blob/main/Analyze_Video.ipynb)
+
 
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/8Rx_0qAA)
 *Reminder*
