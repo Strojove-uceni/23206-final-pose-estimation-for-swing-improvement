@@ -20,7 +20,11 @@ The Golf Swing Analyzer processes a video of a golfer's swing and outputs three 
 
 - **MediaPipe**: This project uses the MediaPipe Pose Estimation model, a cutting-edge solution developed by Google for real-time, high-fidelity pose tracking. The model is capable of tracking 33 key points on the body, providing detailed and accurate data on body posture and movement. This technology is crucial for our analysis, allowing for precise measurement and evaluation of the golfer's swing against established golfing standards. 
 
-### Getting Started
+### Results
+
+- **Output Images**: The tool generates three images, each representing a significant phase of the golf swing. These images highlight key positions and angles colored (in red/green) based on correctness.
+- **Analysis Report**: Alongside the images, a report is provided, explaining the alignment of the golfer's pose with ideal golfing standards. This includes a breakdown of incorrect positions, and offering valuable feedback for improvement.
+
 
 [Instructions on how to set up and run the project. Include any prerequisites, installation steps, and how to run the application.]
 
