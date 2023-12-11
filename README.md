@@ -23,7 +23,7 @@ The Golf Swing Analyzer processes a video of a golfer's swing and outputs three 
 ### Results
 
 - **Output Images**: The tool generates three images, each representing a significant phase of the golf swing. These images highlight key positions and angles colored (in red/green) based on correctness.
-![Example Swing Analysis]('https://github.com/Strojove-uceni/23206-final-pose-estimation-for-swing-improvement/blob/main/output.png' "Swing Analysis Example")
+![Example Swing Analysis](https://github.com/Strojove-uceni/23206-final-pose-estimation-for-swing-improvement/blob/main/output.png)
 
 - **Analysis Report**: Alongside the images, a report is provided, explaining the alignment of the golfer's pose with ideal golfing standards. This includes a breakdown of incorrect positions, and offering valuable feedback for improvement.
 
