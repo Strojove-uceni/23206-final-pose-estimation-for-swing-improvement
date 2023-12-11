@@ -24,7 +24,15 @@ The Golf Swing Analyzer processes a video of a golfer's swing and outputs three 
 
 - **Output Images**: The tool generates three images, each representing a significant phase of the golf swing. These images highlight key positions and angles colored (in red/green) based on correctness.
 - **Analysis Report**: Alongside the images, a report is provided, explaining the alignment of the golfer's pose with ideal golfing standards. This includes a breakdown of incorrect positions, and offering valuable feedback for improvement.
+![Result Example]('https://github.com/Strojove-uceni/23206-final-pose-estimation-for-swing-improvement/blob/main/output.png)
+ 
+ ```plaintext
+Swing part TOP: 
+-> WRONG: Left ankle, left hip and right shoulder angle should be approximately 180 degrees.
+-> WRONG: Left arm should be approximately straight.
 
+Swing part CONTACT: 
+-> WRONG: Left arm should be approximately straight.
 
 [Instructions on how to set up and run the project. Include any prerequisites, installation steps, and how to run the application.]
 
