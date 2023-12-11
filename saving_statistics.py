@@ -13,7 +13,7 @@ view = 'front'
 
 # Input and output folders
 input_folder = 'cropped_videos'
-output_folder_videos = 'result_videos'
+output_folder_videos = 'test' #'result_videos'
 output_folder_csv = 'result_statistics'
 
 # Create output folders if they don't exist
@@ -148,62 +148,62 @@ for filename in os.listdir(input_folder):
                         with open(csv_file_path, mode='a', newline='') as file:
                             writer = csv.writer(file)
                             # Write the data to the
-                            writer.writerow([video_timestamp, shoulders_inclination, hips_inclination, 
-                                             knee_angle, pelvis_angle, arm_angle,
-                                             int(right_shoulder.x* w), int(right_shoulder.y* h),
-                                             int(left_shoulder.x* w), int(left_shoulder.y* h), 
-                                             int(left_elbow.x * w), int(left_elbow.y * h),
-                                             int(right_wrist.x* w), int(right_wrist.y* h), 
-                                             int(left_wrist.x* w), int(left_wrist.y* h), 
-                                             int(nose.x* w), int(nose.y* h), 
-                                             int(right_hip.x * w), int(right_hip.y * h),
-                                             int(left_hip.x * w), int(left_hip.y * h),
-                                             int(right_knee.x * w), int(right_knee.y * h),
-                                             int(right_ankle.x * w), int(right_ankle.y * h),
-                                             int(left_ankle.x * w), int(left_ankle.y * h),
-                                             int(midpoint_x * w), int(midpoint_y * h)])
+                            #writer.writerow([video_timestamp, shoulders_inclination, hips_inclination, 
+                            #                 knee_angle, pelvis_angle, arm_angle,
+                            #                 int(right_shoulder.x* w), int(right_shoulder.y* h),
+                            #                 int(left_shoulder.x* w), int(left_shoulder.y* h), 
+                            #                 int(left_elbow.x * w), int(left_elbow.y * h),
+                            #                 int(right_wrist.x* w), int(right_wrist.y* h), 
+                            #                 int(left_wrist.x* w), int(left_wrist.y* h), 
+                            #                 int(nose.x* w), int(nose.y* h), 
+                            #                 int(right_hip.x * w), int(right_hip.y * h),
+                            #                 int(left_hip.x * w), int(left_hip.y * h),
+                            #                 int(right_knee.x * w), int(right_knee.y * h),
+                            #                 int(right_ankle.x * w), int(right_ankle.y * h),
+                            #                 int(left_ankle.x * w), int(left_ankle.y * h),
+                            #                 int(midpoint_x * w), int(midpoint_y * h)])
                             
                             
-
+                        cv2.circle(image, (0, 0), 6, (0, 255, 0), -1)
                         # Display points
-                        cv2.circle(image, (int(right_shoulder.x * w), int(right_shoulder.y * h)), 6, (0, 255, 0), -1)
-                        cv2.circle(image, (int(left_shoulder.x * w), int(left_shoulder.y * h)), 6, (0, 255, 0), -1)
-                        cv2.circle(image, (int(right_hip.x * w), int(right_hip.y * h)), 6, (255, 255, 0), -1)
-                        cv2.circle(image, (int(left_hip.x * w), int(left_hip.y * h)), 6, (0, 150, 255), -1)
-                        cv2.circle(image, (int(right_knee.x * w), int(right_knee.y * h)), 6, (255, 0, 255), -1)
-                        cv2.circle(image, (int(left_knee.x * w), int(left_knee.y * h)), 6, (255, 0, 255), -1)
-                        cv2.circle(image, (int(left_ankle.x * w), int(left_ankle.y * h)), 6, (255, 0, 0), -1)
-                        cv2.circle(image, (int(left_wrist.x * w), int(left_wrist.y * h)), 6, (0, 255, 255), -1)
-                        cv2.circle(image, (int(nose.x * w), int(nose.y * h)), 6, (0, 0, 255), -1)
-                        cv2.circle(image, (int(left_elbow.x * w), int(left_elbow.y * h)), 6, (128, 0, 128), -1)
-                        cv2.circle(image, (int(right_ankle.x * w), int(right_ankle.y * h)), 6, (255, 0, 0), -1)
-                        cv2.circle(image, (int(midpoint_x * w), int(midpoint_y * h)), 6, (255, 255, 255), -1)
+                        #cv2.circle(image, (int(right_shoulder.x * w), int(right_shoulder.y * h)), 6, (0, 255, 0), -1)
+                        #cv2.circle(image, (int(left_shoulder.x * w), int(left_shoulder.y * h)), 6, (0, 255, 0), -1)
+                        #cv2.circle(image, (int(right_hip.x * w), int(right_hip.y * h)), 6, (255, 255, 0), -1)
+                        #cv2.circle(image, (int(left_hip.x * w), int(left_hip.y * h)), 6, (0, 150, 255), -1)
+                        #cv2.circle(image, (int(right_knee.x * w), int(right_knee.y * h)), 6, (255, 0, 255), -1)
+                        #cv2.circle(image, (int(left_knee.x * w), int(left_knee.y * h)), 6, (255, 0, 255), -1)
+                        #cv2.circle(image, (int(left_ankle.x * w), int(left_ankle.y * h)), 6, (255, 0, 0), -1)
+                        #cv2.circle(image, (int(left_wrist.x * w), int(left_wrist.y * h)), 6, (0, 255, 255), -1)
+                        #cv2.circle(image, (int(nose.x * w), int(nose.y * h)), 6, (0, 0, 255), -1)
+                        #cv2.circle(image, (int(left_elbow.x * w), int(left_elbow.y * h)), 6, (128, 0, 128), -1)
+                        #cv2.circle(image, (int(right_ankle.x * w), int(right_ankle.y * h)), 6, (255, 0, 0), -1)
+                        #cv2.circle(image, (int(midpoint_x * w), int(midpoint_y * h)), 6, (255, 255, 255), -1)
 
                         # Display angle and lines on the image
-                        cv2.putText(image, f'Shoulders inclination: {shoulders_inclination:.2f}', (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
-                        cv2.line(image, (int(right_shoulder.x * w), int(right_shoulder.y * h)), (int(right_shoulder.x * w) + 100, int(right_shoulder.y * h)), (0, 255, 0), 2)
-                        cv2.line(image, (int(left_shoulder.x * w), int(left_shoulder.y * h)), (int(right_shoulder.x * w), int(right_shoulder.y * h)), (0, 255, 0), 2)
+                        #cv2.putText(image, f'Shoulders inclination: {shoulders_inclination:.2f}', (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
+                        #cv2.line(image, (int(right_shoulder.x * w), int(right_shoulder.y * h)), (int(right_shoulder.x * w) + 100, int(right_shoulder.y * h)), (0, 255, 0), 2)
+                        #cv2.line(image, (int(left_shoulder.x * w), int(left_shoulder.y * h)), (int(right_shoulder.x * w), int(right_shoulder.y * h)), (0, 255, 0), 2)
 
-                        cv2.putText(image, f'Hips inclination: {hips_inclination:.2f}', (10, 45), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 0), 2)
-                        cv2.line(image, (int(left_hip.x * w), int(left_hip.y * h)), (int(left_hip.x * w) - 100, int(left_hip.y * h) ), (255, 255, 0), 2)
-                        cv2.line(image, (int(left_hip.x * w), int(left_hip.y * h)), (int(right_hip.x * w), int(right_hip.y * h)), (255, 255, 0), 2)
+                        #cv2.putText(image, f'Hips inclination: {hips_inclination:.2f}', (10, 45), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 0), 2)
+                        #cv2.line(image, (int(left_hip.x * w), int(left_hip.y * h)), (int(left_hip.x * w) - 100, int(left_hip.y * h) ), (255, 255, 0), 2)
+                        #cv2.line(image, (int(left_hip.x * w), int(left_hip.y * h)), (int(right_hip.x * w), int(right_hip.y * h)), (255, 255, 0), 2)
 
-                        cv2.putText(image, f'Knee Angle: {knee_angle:.2f}', (10, 70), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 0, 255), 2)
-                        cv2.line(image, (int(left_hip.x * w), int(left_hip.y * h)), (int(left_knee.x * w), int(left_knee.y * h)), (255, 0, 255), 2)
-                        cv2.line(image, (int(left_knee.x * w), int(left_knee.y * h)), (int(left_ankle.x * w), int(left_ankle.y * h)), (255, 0, 255), 2)
+                        #cv2.putText(image, f'Knee Angle: {knee_angle:.2f}', (10, 70), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 0, 255), 2)
+                        #cv2.line(image, (int(left_hip.x * w), int(left_hip.y * h)), (int(left_knee.x * w), int(left_knee.y * h)), (255, 0, 255), 2)
+                        #cv2.line(image, (int(left_knee.x * w), int(left_knee.y * h)), (int(left_ankle.x * w), int(left_ankle.y * h)), (255, 0, 255), 2)
 
-                        cv2.putText(image, f'Pelvis Angle: {pelvis_angle:.2f}', (10, 95), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 150, 255), 2)
-                        cv2.line(image, (int(left_hip.x * w), int(left_hip.y * h)), (int(left_ankle.x * w), int(left_ankle.y * h)), (0, 150, 255), 2)
-                        cv2.line(image, (int(left_hip.x * w), int(left_hip.y * h)), (int(right_shoulder.x * w), int(right_shoulder.y * h)), (0, 150, 255), 2)
+                        #cv2.putText(image, f'Pelvis Angle: {pelvis_angle:.2f}', (10, 95), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 150, 255), 2)
+                        #cv2.line(image, (int(left_hip.x * w), int(left_hip.y * h)), (int(left_ankle.x * w), int(left_ankle.y * h)), (0, 150, 255), 2)
+                        #cv2.line(image, (int(left_hip.x * w), int(left_hip.y * h)), (int(right_shoulder.x * w), int(right_shoulder.y * h)), (0, 150, 255), 2)
 
-                        cv2.putText(image, f'Arm Angle: {arm_angle:.2f}', (10, 120), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (128, 0, 128), 2)
-                        cv2.line(image, (int(left_shoulder.x * w), int(left_shoulder.y * h)), (int(left_elbow.x * w), int(left_elbow.y * h)), (128, 0, 128), 2)
-                        cv2.line(image, (int(left_elbow.x * w), int(left_elbow.y * h)), (int(left_wrist.x * w), int(left_wrist.y * h)), (128, 0, 128), 2)
+                        #cv2.putText(image, f'Arm Angle: {arm_angle:.2f}', (10, 120), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (128, 0, 128), 2)
+                        #cv2.line(image, (int(left_shoulder.x * w), int(left_shoulder.y * h)), (int(left_elbow.x * w), int(left_elbow.y * h)), (128, 0, 128), 2)
+                        #cv2.line(image, (int(left_elbow.x * w), int(left_elbow.y * h)), (int(left_wrist.x * w), int(left_wrist.y * h)), (128, 0, 128), 2)
 
-                        cv2.line(image, (int(left_ankle.x * w), int(left_ankle.y * h)), (int(left_ankle.x * w), int(left_ankle.y * h)- 200), (255, 0, 0), 2)
-                        cv2.line(image, (int(right_ankle.x * w), int(right_ankle.y * h)), (int(right_ankle.x * w), int(right_ankle.y * h) - 200), (255, 0, 0), 2)
+                        #cv2.line(image, (int(left_ankle.x * w), int(left_ankle.y * h)), (int(left_ankle.x * w), int(left_ankle.y * h)- 200), (255, 0, 0), 2)
+                        #cv2.line(image, (int(right_ankle.x * w), int(right_ankle.y * h)), (int(right_ankle.x * w), int(right_ankle.y * h) - 200), (255, 0, 0), 2)
 
-                        cv2.line(image, (int(midpoint_x * w), int(midpoint_y * h)), (int(midpoint_x * w), int(midpoint_y * h) - 200), (255, 255, 255), 2)
+                        #cv2.line(image, (int(midpoint_x * w), int(midpoint_y * h)), (int(midpoint_x * w), int(midpoint_y * h) - 200), (255, 255, 255), 2)
 
                         # Write the frame into the file
                         out.write(image)
