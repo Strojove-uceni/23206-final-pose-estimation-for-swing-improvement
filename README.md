@@ -35,6 +35,7 @@ Swing part TOP:
 
 Swing part CONTACT: 
 -> WRONG: Left arm should be approximately straight.
+```
 
 [Instructions on how to set up and run the project. Include any prerequisites, installation steps, and how to run the application.]
 
