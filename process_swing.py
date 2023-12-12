@@ -66,13 +66,6 @@ class DataProcessor:
         self.data=self.data.reset_index()
         self.data.columns = [col.replace(' X', '_x').replace(' Y', '_y').lower() for col in self.data.columns]
         self.data=self.data.drop(['video_timestamp'],axis=1)
-        
-        # Revert yolo normalization where needed
-        excluded_columns=['arm_angle','pelvis_angle','hips_inclination','shoulders_inclination','knee_angle']
-        self.data[self.data.columns.difference(excluded_columns)]=self.data[self.data.columns.difference(excluded_columns)]*0.68
-        
-        # For plotting the points set all variables to integers
-        self.data=self.data.astype(int)
 
         # Reduce the dataset to only include the 3 phases we are looking for
         self.split_swing()
@@ -121,9 +114,9 @@ class Evaluator:
     def evaluate_top(self, data, swing_part_id):
         head_point_current = np.array([data['nose_y'].iloc[swing_part_id], data['nose_x'].iloc[swing_part_id]])
         results = {
-            "correct_pelvis": int(165 <= data['pelvis_angle'].iloc[swing_part_id] <= 180),
-            "correct_arm_angle": int(130 <= data['arm_angle'].iloc[swing_part_id] <= 150),
-            "correct_head": int(self.calculate_head_distance(head_point_current, self.head_point_address) <= 20)
+            "correct_pelvis": int(150 <= data['pelvis_angle'].iloc[swing_part_id] <= 180),
+            # "correct_arm_angle": int(150 <= data['arm_angle'].iloc[swing_part_id] <= 180),
+            "correct_head": int(self.calculate_head_distance(head_point_current, self.head_point_address) <= 30)
         }
         return results
 
@@ -131,9 +124,9 @@ class Evaluator:
         head_point_current = np.array([data['nose_y'].iloc[swing_part_id], data['nose_x'].iloc[swing_part_id]])
         results = {
             "correct_shoulder_ankle": int(data['left_ankle_x'].iloc[swing_part_id] - data['left_shoulder_x'].iloc[swing_part_id] >= 0),
-            "correct_head": int(self.calculate_head_distance(head_point_current, self.head_point_address) <= 20),
+            "correct_head": int(self.calculate_head_distance(head_point_current, self.head_point_address) <= 30),
             "correct_knee_angle": int(165 <= data['knee_angle'].loc[swing_part_id] <= 180),
-            "correct_arm_angle": int(165 <= data['arm_angle'].iloc[swing_part_id] <= 180)
+            "correct_arm_angle": int(160 <= data['arm_angle'].iloc[swing_part_id] <= 180)
         }
         return results
 
@@ -232,7 +225,7 @@ class VideoProcessor:
 
             knee_angle_text = f'Knee Angle: {self.data["knee_angle"].iloc[swing_part_id]:.2f}'
             self.plot_text(frame, knee_angle_text, (10, 70), evaluation_results['correct_knee_angle'])
-            # self.plot_line(frame, (self.data['left_hip_x'].iloc[swing_part_id], self.data['left_hip_y'].iloc[swing_part_id]), (self.data['left_knee_x'].iloc[swing_part_id], self.data['left_knee_y'].iloc[swing_part_id]), evaluation_results['correct_knee_angle'])
+            self.plot_line(frame, (self.data['left_hip_x'].iloc[swing_part_id], self.data['left_hip_y'].iloc[swing_part_id]), (self.data['left_knee_x'].iloc[swing_part_id], self.data['left_knee_y'].iloc[swing_part_id]), evaluation_results['correct_knee_angle'])
             self.plot_line(frame, (self.data['left_hip_x'].iloc[swing_part_id], self.data['left_hip_y'].iloc[swing_part_id]), (self.data['left_ankle_x'].iloc[swing_part_id], self.data['left_ankle_y'].iloc[swing_part_id]), evaluation_results['correct_knee_angle'])
 
             self.plot_circle(frame, (self.data['left_ankle_x'].iloc[swing_part_id], self.data['left_ankle_y'].iloc[swing_part_id]), evaluation_results['correct_shoulder_ankle'])
@@ -241,9 +234,9 @@ class VideoProcessor:
             if self.data['nose_x'].iloc[swing_part_id]!=0 and self.data['nose_y'].iloc[swing_part_id]!=0:
                 self.plot_line(frame, (self.data['nose_x'].iloc[0], self.data['nose_y'].iloc[0]), (self.data['nose_x'].iloc[swing_part_id], self.data['nose_y'].iloc[swing_part_id]), evaluation_results['correct_head'])
                 self.plot_circle(frame, (self.data['nose_x'].iloc[swing_part_id], self.data['nose_y'].iloc[swing_part_id]), evaluation_results['correct_head'])
-                self.plot_circle(frame, (self.data['nose_x'].iloc[0], self.data['nose_y'].iloc[0]), evaluation_results['correct_head'], 20, 2)
+                self.plot_circle(frame, (self.data['nose_x'].iloc[0], self.data['nose_y'].iloc[0]), evaluation_results['correct_head'], 30, 2)
             else:
-                self.plot_circle(frame, (self.data['nose_x'].iloc[0], self.data['nose_y'].iloc[0]), evaluation_results['correct_head'], 20, 2)
+                self.plot_circle(frame, (self.data['nose_x'].iloc[0], self.data['nose_y'].iloc[0]), evaluation_results['correct_head'], 30, 2)
 
             arm_angle_text = f'Arm Angle: {self.data["arm_angle"].iloc[swing_part_id]:.2f}'
             self.plot_text(frame, arm_angle_text, (10, 120), evaluation_results['correct_arm_angle'])
@@ -270,31 +263,16 @@ class VideoProcessor:
             if self.data['nose_x'].iloc[swing_part_id]!=0 and self.data['nose_y'].iloc[swing_part_id]!=0:
                 self.plot_line(frame, (self.data['nose_x'].iloc[0], self.data['nose_y'].iloc[0]), (self.data['nose_x'].iloc[swing_part_id], self.data['nose_y'].iloc[swing_part_id]), evaluation_results['correct_head'])
                 self.plot_circle(frame, (self.data['nose_x'].iloc[swing_part_id], self.data['nose_y'].iloc[swing_part_id]), evaluation_results['correct_head'])
-                self.plot_circle(frame, (self.data['nose_x'].iloc[0], self.data['nose_y'].iloc[0]), evaluation_results['correct_head'], 20, 2)
+                self.plot_circle(frame, (self.data['nose_x'].iloc[0], self.data['nose_y'].iloc[0]), evaluation_results['correct_head'], 30, 2)
             else:
-                self.plot_circle(frame, (self.data['nose_x'].iloc[0], self.data['nose_y'].iloc[0]), evaluation_results['correct_head'], 20, 2)
-            arm_angle_text = f'Arm Angle: {self.data["arm_angle"].iloc[swing_part_id]:.2f}'
-            self.plot_text(frame, arm_angle_text, (10, 120), evaluation_results['correct_arm_angle'])
-            self.plot_line(frame, (self.data['left_shoulder_x'].iloc[swing_part_id], self.data['left_shoulder_y'].iloc[swing_part_id]), (self.data['left_elbow_x'].iloc[swing_part_id], self.data['left_elbow_y'].iloc[swing_part_id]), evaluation_results['correct_arm_angle'])
-            self.plot_line(frame, (self.data['left_elbow_x'].iloc[swing_part_id], self.data['left_elbow_y'].iloc[swing_part_id]), (self.data['left_wrist_x'].iloc[swing_part_id], self.data['left_wrist_y'].iloc[swing_part_id]), evaluation_results['correct_arm_angle'])
+                self.plot_circle(frame, (self.data['nose_x'].iloc[0], self.data['nose_y'].iloc[0]), evaluation_results['correct_head'], 30, 2)
+            # arm_angle_text = f'Arm Angle: {self.data["arm_angle"].iloc[swing_part_id]:.2f}'
+            # self.plot_text(frame, arm_angle_text, (10, 120), evaluation_results['correct_arm_angle'])
+            # self.plot_line(frame, (self.data['left_shoulder_x'].iloc[swing_part_id], self.data['left_shoulder_y'].iloc[swing_part_id]), (self.data['left_elbow_x'].iloc[swing_part_id], self.data['left_elbow_y'].iloc[swing_part_id]), evaluation_results['correct_arm_angle'])
+            # self.plot_line(frame, (self.data['left_elbow_x'].iloc[swing_part_id], self.data['left_elbow_y'].iloc[swing_part_id]), (self.data['left_wrist_x'].iloc[swing_part_id], self.data['left_wrist_y'].iloc[swing_part_id]), evaluation_results['correct_arm_angle'])
 
         return frame
    
 
         
     
-
-    
-
-# class GolfSwingAnalyzer:
-#     """
-#     Orchestrator class to manage the interaction between data processing, video processing and evaluation.
-#     """
-#     def __init__(self, data_path, video_path):
-#         self.data_processor = DataProcessor(data_path)
-#         self.video_processor = VideoProcessor(video_path)
-#         self.evaluator = Evaluator()
-
-#     def analyze(self):
-#         # High-level method to perform the analysis
-#         pass
