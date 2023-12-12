@@ -4,7 +4,7 @@ import math
 import csv
 import datetime
 
-class VideoProcessor:
+class MediaPipe_PoseEstimation:
     def __init__(self, input_file, csv_file_name, output_video_name):
         self.input_file = input_file
         self.csv_file_name = csv_file_name
