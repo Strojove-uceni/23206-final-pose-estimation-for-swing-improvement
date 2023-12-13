@@ -73,6 +73,9 @@ class MediaPipe_PoseEstimation:
         with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as pose:
             while cap.isOpened():
                 success, image = cap.read()
+                if not success:
+                  print("Null.Frames")
+                  break
                 try:
                     fps = cap.get(cv2.CAP_PROP_FPS)
                     video_timestamp = round(frame_number / fps)
