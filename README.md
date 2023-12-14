@@ -18,7 +18,10 @@ The Golf Swing Analyzer processes a video of a golfer's swing and outputs three 
 
 ### Technologies Used
 
-- **MediaPipe**: This project uses the MediaPipe Pose Estimation model, a cutting-edge solution developed by Google for real-time, high-fidelity pose tracking. The model is capable of tracking 33 key points on the body, providing detailed and accurate data on body posture and movement. This technology is crucial for our analysis, allowing for precise measurement and evaluation of the golfer's swing against established golfing standards. 
+- **MediaPipe**: This project uses the MediaPipe Pose Estimation model, a cutting-edge solution developed by Google for real-time, high-fidelity pose tracking. The model is capable of tracking 33 key points on the body, providing detailed and accurate data on body posture and movement. This technology is crucial for our analysis, allowing for precise measurement and evaluation of the golfer's swing against established golfing standards.
+
+- **YOLO (You Only Look Once) for Pose Estimation**: Another option for pose estimation that is implemented in our project is YOLO. This approach should be a fast and accurate method for pose estimation. However, during our trials, we found that while YOLO provided promising results, MediaPipe offered more precise and detailed pose data, which was crucial for our specific application in analyzing the intricacies of golf swings.
+
 
 ### Results
 
