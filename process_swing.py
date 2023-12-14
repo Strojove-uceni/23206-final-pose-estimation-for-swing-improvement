@@ -150,12 +150,12 @@ class VideoProcessor:
     
     def print_swing_analysis(self):
         messages = {
-            'correct_midpoint': 'WRONG: The arms should be positioned more to the left side of the center of feet.',
-            'correct_arm_angle': 'WRONG: Left arm should be approximately straight.',
-            'correct_pelvis': 'WRONG: Left ankle, left hip and right shoulder angle should be approximately 180 degrees.',
+            'correct_midpoint': 'WRONG: Arms should be positioned more to the left side of the center of feet.',
+            'correct_arm_angle': 'WRONG: Left arm should be straight at this point.',
+            'correct_pelvis': 'WRONG: Left ankle, left hip and right shoulder angle should form approximately straight line. Try turning more into the backswing.',
             'correct_head':  'WRONG: The head should remain relatively still until contact.',
-            'correct_shoulder_ankle': 'WRONG: The shoulder should not go beyond the front foot.',
-            'correct_knee_angle': 'WRONG: The knee should not bend as much.'
+            'correct_shoulder_ankle': 'WRONG: Left shoulder should not go beyond the front foot at this point.',
+            'correct_knee_angle': 'WRONG: Knee should not bend as much.'
         }
         # Iterate over each swing part and construct the analysis message
         analysis = []
