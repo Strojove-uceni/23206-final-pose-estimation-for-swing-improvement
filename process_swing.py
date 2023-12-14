@@ -226,7 +226,7 @@ class VideoProcessor:
             knee_angle_text = f'Knee Angle: {self.data["knee_angle"].iloc[swing_part_id]:.2f}'
             self.plot_text(frame, knee_angle_text, (10, 70), evaluation_results['correct_knee_angle'])
             self.plot_line(frame, (self.data['left_hip_x'].iloc[swing_part_id], self.data['left_hip_y'].iloc[swing_part_id]), (self.data['left_knee_x'].iloc[swing_part_id], self.data['left_knee_y'].iloc[swing_part_id]), evaluation_results['correct_knee_angle'])
-            self.plot_line(frame, (self.data['left_hip_x'].iloc[swing_part_id], self.data['left_hip_y'].iloc[swing_part_id]), (self.data['left_ankle_x'].iloc[swing_part_id], self.data['left_ankle_y'].iloc[swing_part_id]), evaluation_results['correct_knee_angle'])
+            self.plot_line(frame, (self.data['left_knee_x'].iloc[swing_part_id], self.data['left_knee_y'].iloc[swing_part_id]), (self.data['left_ankle_x'].iloc[swing_part_id], self.data['left_ankle_y'].iloc[swing_part_id]), evaluation_results['correct_knee_angle'])
 
             self.plot_circle(frame, (self.data['left_ankle_x'].iloc[swing_part_id], self.data['left_ankle_y'].iloc[swing_part_id]), evaluation_results['correct_shoulder_ankle'])
             self.plot_line(frame, (self.data['left_ankle_x'].iloc[swing_part_id], self.data['left_ankle_y'].iloc[swing_part_id]), (self.data['left_ankle_x'].iloc[swing_part_id], self.data['left_ankle_y'].iloc[swing_part_id] - 200), evaluation_results['correct_shoulder_ankle'])
