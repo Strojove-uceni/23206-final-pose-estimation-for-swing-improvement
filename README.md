@@ -24,16 +24,15 @@ The Golf Swing Analyzer processes a video of a golfer's swing and outputs three 
 - **YOLO (You Only Look Once) for Pose Estimation**: Another option for pose estimation that is implemented in our project is YOLO. This approach should be a fast and accurate method for pose estimation. However, during our trials, we found that while YOLO provided promising results, MediaPipe offered more precise and detailed pose data, which was crucial for our specific application in analyzing the intricacies of golf swings.
 
 ### How It Works
-The Golf Swing Analyzer follows a structured process to analyze and provide feedback on golf swings. Here's a step-by-step overview of what happens in the code is provided in the following diagram. 
+The Golf Swing Analyzer follows a structured process to analyze and provide feedback on golf swings. A step-by-step overview of the code execution process is provided in the following diagram. 
 ![Process](https://github.com/Strojove-uceni/23206-final-pose-estimation-for-swing-improvement/blob/main/diagram.png)
 
 1. **Video Input**: The process begins with uploading a video of a golf swing.
 2. **Applying MediaPipe Pose Estimation**: Once the video is received, it's processed using the MediaPipe Pose Estimation model. This model identifies and tracks key points on the golfer's body throughout the swing. In addition to preserving the information about body keypoints at each frame, different body angles such as the arm angle in the elbow or the angle in the knee are calculated and tracked.
 3. **Swing Phase Segmentation**: The code then segments the swing into distinct phases (e.g., address, top backswing, contact) for targeted analysis. The input to this process is the information about every body part and angle that is examined at every frame of the video. In golf swing, what comes naturally to both more and less advanced players is the arm movement trajectory. Based on this trajectory, the extreme values are detected which are then used to find the frames of interest and discard the rest. An example of this is shown in the image where the swing parts are labelled along with the wrist function extrema.
 ![Swing Phase Segmentation](https://github.com/Strojove-uceni/23206-final-pose-estimation-for-swing-improvement/blob/main/swing_split_example.jpg)
-5. 
-
-
+5. **Comparison with Golf Theory**: The calculated angles and points are compared against established standards in golf theory to determine their correctness. In addition to using basic standards, we accounted for the mistake of the model and tuned the thresholds for errors on a dataset consisting of professional golf swing videos scraped from youtube.
+6. **Generating Output**: This process generates a set of images capturing the key moments of the swing, along with an analysis report. The report highlights areas of the swing that deviate from the ideal golfing technique.
 
 
 ### Results
