@@ -56,6 +56,12 @@ Swing part TOP:
 Swing part CONTACT: 
 -> WRONG: The left arm should be straight at this point.
 ```
+### Conclusion
+The Golf Swing Analyzer project successfully demonstrates the potential of advanced pose estimation technologies, like MediaPipe, in analyzing and improving sports techniques. The implications of this project extend beyond golf training. The methodology and technology applied here could be adapted for other sports where technique and posture play a crucial role, such as tennis or baseball.
+
+While our project has yielded promising results, it's important to acknowledge certain limitations. While MediaPipe provides high-precision tracking, there's room for improvement in pose estimation accuracy when dealing with sports poses and sudden movements. Enhancing the model's robustness to handle these scenarios will make the analysis more reliable. Currently, the golf swing is segmented into a few key phases. Further breaking down the swing into more phases could provide deeper insights into the mechanics of the swing, allowing for more detailed feedback and analysis. 
+
+
 ### References
 1. **GolfDB: A Video Database for Golf Swing Sequencing**  
    McNally, William et al. (2019). "GolfDB: A Video Database for Golf Swing Sequencing." In: The IEEE Conference on Computer Vision and Pattern Recognition (CVPR) Workshops. June 2019.  
