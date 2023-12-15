@@ -1,8 +1,9 @@
 ![Golf Swing Analyzer Logo](https://github.com/Strojove-uceni/23206-final-pose-estimation-for-swing-improvement/blob/main/logo.png)
 
 # Golf Swing Analyzer
-
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://github.com/Strojove-uceni/23206-final-pose-estimation-for-swing-improvement/blob/main/Analyze_Video.ipynb)
+
+Authors: *Soňa Drocárová*, *Tereza Fucsiková*
 
 Welcome to the **Golf Swing Analyzer** project! This innovative tool leverages advanced pose estimation models to analyze golf swings from video inputs. Our aim is to help golfers improve their technique by providing insightful feedback based on established golf theories and professional golfer statistics.
 
@@ -18,7 +19,10 @@ The Golf Swing Analyzer processes a video of a golfer's swing and outputs three 
 
 ### Technologies Used
 
-- **MediaPipe**: This project uses the MediaPipe Pose Estimation model, a cutting-edge solution developed by Google for real-time, high-fidelity pose tracking. The model is capable of tracking 33 key points on the body, providing detailed and accurate data on body posture and movement. This technology is crucial for our analysis, allowing for precise measurement and evaluation of the golfer's swing against established golfing standards. 
+- **MediaPipe**: This project uses the MediaPipe Pose Estimation model, a cutting-edge solution developed by Google for real-time, high-fidelity pose tracking. The model is capable of tracking 33 key points on the body, providing detailed and accurate data on body posture and movement. This technology is crucial for our analysis, allowing for precise measurement and evaluation of the golfer's swing against established golfing standards.
+
+- **YOLO (You Only Look Once) for Pose Estimation**: Another option for pose estimation that is implemented in our project is YOLO. This approach should be a fast and accurate method for pose estimation. However, during our trials, we found that while YOLO provided promising results, MediaPipe offered more precise and detailed pose data, which was crucial for our specific application in analyzing the intricacies of golf swings.
+
 
 ### Results
 
@@ -37,11 +41,5 @@ Swing part CONTACT:
 -> WRONG: Left arm should be approximately straight.
 ```
 
-[Instructions on how to set up and run the project. Include any prerequisites, installation steps, and how to run the application.]
 
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/8Rx_0qAA)
-*Reminder*
-*   *Do not miss [deadline](https://su2.utia.cas.cz/labs.html#projects) for uploading your implementation and documentation of your final project.*
-*   *Include working demo in Colab, in which you clearly demonstrate your results. Please refer to the Implementation section on the [labs website](https://su2.utia.cas.cz/labs.html#projects).*
-*   *Do not upload huge datasets to GitHub repository.*
 
