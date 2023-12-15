@@ -1,8 +1,9 @@
 ![Golf Swing Analyzer Logo](https://github.com/Strojove-uceni/23206-final-pose-estimation-for-swing-improvement/blob/main/logo.png)
 
 # Golf Swing Analyzer
-
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://github.com/Strojove-uceni/23206-final-pose-estimation-for-swing-improvement/blob/main/Analyze_Video.ipynb)
+
+Authors: *Soňa Drocárová*, *Tereza Fucsiková*
 
 Welcome to the **Golf Swing Analyzer** project! This innovative tool leverages advanced pose estimation models to analyze golf swings from video inputs. Our aim is to help golfers improve their technique by providing insightful feedback based on established golf theories and professional golfer statistics.
 
@@ -40,11 +41,5 @@ Swing part CONTACT:
 -> WRONG: Left arm should be approximately straight.
 ```
 
-[Instructions on how to set up and run the project. Include any prerequisites, installation steps, and how to run the application.]
 
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/8Rx_0qAA)
-*Reminder*
-*   *Do not miss [deadline](https://su2.utia.cas.cz/labs.html#projects) for uploading your implementation and documentation of your final project.*
-*   *Include working demo in Colab, in which you clearly demonstrate your results. Please refer to the Implementation section on the [labs website](https://su2.utia.cas.cz/labs.html#projects).*
-*   *Do not upload huge datasets to GitHub repository.*
 
