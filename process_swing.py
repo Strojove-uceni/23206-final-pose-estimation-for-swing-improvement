@@ -31,9 +31,9 @@ class DataProcessor:
 
     def split_swing(self):
         """
-        Keeps only 3 key frame with the swing parts we are analyzing
+        Keeps only 3 key frame with the swing parts we are analyzing.
         """
-        #consider only time between backswing and finish
+        # Consider only time between backswing and finish
         halfway_back_ind=self.data['right_wrist_x'].idxmin()
         halfway_front_ind=self.data.right_wrist_x[self.data.index>halfway_back_ind].idxmax()
         middle_data=self.data[(self.data.index>halfway_back_ind)&(self.data.index<halfway_front_ind)]
@@ -42,19 +42,19 @@ class DataProcessor:
             halfway_back_ind=self.data.right_wrist_x[self.data.index<halfway_back_ind].idxmin()
             halfway_front_ind=self.data.right_wrist_x[self.data.index>halfway_back_ind].idxmax()
             middle_data=self.data[(self.data.index>halfway_back_ind)&(self.data.index<halfway_front_ind)]     
-        #find moment of ball contact as the lowest wrist point on y
+        # Find moment of ball contact as the lowest wrist point on y
         contact_frame=middle_data['right_wrist_y'].idxmax()
 
-        #isolate only backswing data
+        # Isolate only backswing data
         back_data=self.data[(self.data.index<contact_frame.item())]
-        #find moment of top of backswing as the highest wrist point on y
+        # Find moment of top of backswing as the highest wrist point on y
         top_backswing_frame=back_data['right_wrist_y'].idxmin()
-        #find moment before start of the swing as the lowest wrist point on y before going halfway back
+        # Find moment before start of the swing as the lowest wrist point on y before going halfway back
         halfway_back_data=self.data[self.data.index<halfway_back_ind]
         address_frame=halfway_back_data['right_wrist_y'].idxmax()
 
         self.data=self.data.iloc[[max([address_frame.item()-4,0]), top_backswing_frame.item(), contact_frame.item()]]
-        # print(self.data)
+
         self.data['index']=self.data.index
         self.data=self.data.reset_index(drop=True)
 
@@ -106,33 +106,33 @@ class Evaluator:
 
     def evaluate_address(self, data, swing_part_id):
         results = {
-            "correct_midpoint": int(data['midpoint_x'].iloc[swing_part_id] - data['left_wrist_x'].iloc[swing_part_id] < 0),
-            "correct_arm_angle": int(165 <= data['arm_angle'].iloc[swing_part_id] <= 180)
+            "correct_midpoint": int(data['midpoint_x'].iloc[swing_part_id] - data['left_wrist_x'].iloc[swing_part_id] < 0), # Wrist should be on the left from center.
+            "correct_arm_angle": int(165 <= data['arm_angle'].iloc[swing_part_id] <= 180)   # Left arm should be straight.
         }
         return results
 
     def evaluate_top(self, data, swing_part_id):
         head_point_current = np.array([data['nose_y'].iloc[swing_part_id], data['nose_x'].iloc[swing_part_id]])
         results = {
-            "correct_pelvis": int(150 <= data['pelvis_angle'].iloc[swing_part_id] <= 180),
-            # "correct_arm_angle": int(150 <= data['arm_angle'].iloc[swing_part_id] <= 180),
-            "correct_head": int(self.calculate_head_distance(head_point_current, self.head_point_address) <= 30)
+            "correct_pelvis": int(150 <= data['pelvis_angle'].iloc[swing_part_id] <= 180), # Leg, hip and shoulder should make straight line.
+            # "correct_arm_angle": int(150 <= data['arm_angle'].iloc[swing_part_id] <= 180), # Left out, usually wrong detection in both models
+            "correct_head": int(self.calculate_head_distance(head_point_current, self.head_point_address) <= 30) # Little to no head movement from address
         }
         return results
 
     def evaluate_contact(self, data, swing_part_id):
         head_point_current = np.array([data['nose_y'].iloc[swing_part_id], data['nose_x'].iloc[swing_part_id]])
         results = {
-            "correct_shoulder_ankle": int(data['left_ankle_x'].iloc[swing_part_id] - data['left_shoulder_x'].iloc[swing_part_id] >= 0),
-            "correct_head": int(self.calculate_head_distance(head_point_current, self.head_point_address) <= 30),
-            "correct_knee_angle": int(165 <= data['knee_angle'].loc[swing_part_id] <= 180),
-            "correct_arm_angle": int(160 <= data['arm_angle'].iloc[swing_part_id] <= 180)
+            "correct_shoulder_ankle": int(data['left_ankle_x'].iloc[swing_part_id] - data['left_shoulder_x'].iloc[swing_part_id] >= 0), # Shoulder shoud not go beyond ankle.
+            "correct_head": int(self.calculate_head_distance(head_point_current, self.head_point_address) <= 30), # Little to no head movement from address.
+            "correct_knee_angle": int(165 <= data['knee_angle'].loc[swing_part_id] <= 180), # Straight leg
+            "correct_arm_angle": int(160 <= data['arm_angle'].iloc[swing_part_id] <= 180) # Straight arm
         }
         return results
 
     @staticmethod
     def calculate_head_distance(head_point_current, head_point_address):
-        return np.linalg.norm(np.array(head_point_current).flatten()- np.array(head_point_address).flatten())
+        return np.linalg.norm(np.array(head_point_current).flatten()- np.array(head_point_address).flatten()) # Calculates distance of the head from the address point.
         
 
 
@@ -149,15 +149,18 @@ class VideoProcessor:
         self.swing_part_indices = {'address': 0, 'top': 1, 'contact': 2}  # Indices for each swing part
     
     def print_swing_analysis(self):
+        """
+        Prints the messages based on evaluations.
+        """
         messages = {
             'correct_midpoint': 'WRONG: Arms should be positioned more to the left side of the center of feet.',
             'correct_arm_angle': 'WRONG: Left arm should be straight at this point.',
-            'correct_pelvis': 'WRONG: Left ankle, left hip and right shoulder angle should form approximately straight line. Try turning more into the backswing.',
-            'correct_head':  'WRONG: The head should remain relatively still until contact.',
+            'correct_pelvis': 'WRONG: Left ankle, left hip and right shoulder angle should form a straight line. Try turning more into the backswing.',
+            'correct_head':  'WRONG: Head should remain relatively still until contact.',
             'correct_shoulder_ankle': 'WRONG: Left shoulder should not go beyond the front foot at this point.',
             'correct_knee_angle': 'WRONG: Knee should not bend as much.'
         }
-        # Iterate over each swing part and construct the analysis message
+        #Iterate over each swing part and create the analysis message
         analysis = []
         for swing_part, checks in self.correct.items():
             part_analysis = [f"Swing part {swing_part.upper()}: "]
@@ -172,7 +175,9 @@ class VideoProcessor:
         print("\n\n".join(analysis))
 
     def save_frame(self):
-
+        """
+        Captures the 3 main frames, plots the sought after angles and points based (colored based on evaluatuon) and saves them.
+        """
         video_files = [file for file in os.listdir(self.folder_path) if file.endswith('.mp4')]
         video_path=video_files[0]
 
