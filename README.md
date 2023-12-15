@@ -34,11 +34,11 @@ The Golf Swing Analyzer processes a video of a golfer's swing and outputs three 
  
  ```plaintext
 Swing part TOP: 
--> WRONG: Left ankle, left hip and right shoulder angle should be approximately 180 degrees.
--> WRONG: Left arm should be approximately straight.
+-> WRONG: Left ankle, left hip and right shoulder angle should form a straight line. Try turning more into the backswing.
+-> WRONG: The left arm should be straight at this point.
 
 Swing part CONTACT: 
--> WRONG: Left arm should be approximately straight.
+-> WRONG: The left arm should be straight at this point.
 ```
 
 
