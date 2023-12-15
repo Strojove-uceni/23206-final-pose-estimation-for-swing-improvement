@@ -63,10 +63,10 @@ Swing part CONTACT:
 
 2. **MediaPipe: A Framework for Perceiving and Processing Reality**  
    Lugaresi, Camillo et al. (2019). "MediaPipe: A Framework for Perceiving and Processing Reality." In: Third Workshop on Computer Vision for AR/VR at IEEE Computer Vision and Pattern Recognition (CVPR) 2019.  
-   [PDF Link](https://mixedreality.cs.cornell.edu/s/NewTitle_May1_MediaPipe_CVPR_CV4ARVR_Workshop_2019.pdf)
+   [Paper Link](https://mixedreality.cs.cornell.edu/s/NewTitle_May1_MediaPipe_CVPR_CV4ARVR_Workshop_2019.pdf)
 
 3. **YOLOv7: Trainable Bag-of-Freebies Sets New State-of-the-Art for Real-Time Object Detectors**  
    Wang, Chien-Yao et al. (2023). "YOLOv7: Trainable Bag-of-Freebies Sets New State-of-the-Art for Real-Time Object Detectors." In: Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), 2023.  
-   [Conference Link or Paper Link](https://github.com/WongKinYiu/yolov7?fbclid=IwAR1mtD0Vq5tlIPLxnPshr4CkKSNkpwOx4yWXuTxRjGctCGIAU6-hdPQI6pM)
+   [Repo Link](https://github.com/WongKinYiu/yolov7?fbclid=IwAR1mtD0Vq5tlIPLxnPshr4CkKSNkpwOx4yWXuTxRjGctCGIAU6-hdPQI6pM)
 
 
