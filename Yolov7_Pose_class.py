@@ -12,7 +12,7 @@ import math
 import datetime
 import numpy as np
 
-class PoseEstimation:
+class Yolov7_PoseEstimation:
     def __init__(self, file_path, csv_file_path, output_video_path):
         self.file_path = file_path
         self.csv_file_path = csv_file_path
