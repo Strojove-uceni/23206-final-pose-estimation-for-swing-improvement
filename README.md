@@ -57,26 +57,16 @@ Swing part CONTACT:
 -> WRONG: The left arm should be straight at this point.
 ```
 ### References
-@InProceedings{McNally_2019_CVPR_Workshops,
-author = {McNally, William and Vats, Kanav and Pinto, Tyler and Dulhanty, Chris and McPhee, John and Wong, Alexander},
-title = {GolfDB: A Video Database for Golf Swing Sequencing},
-booktitle = {The IEEE Conference on Computer Vision and Pattern Recognition (CVPR) Workshops},
-month = {June},
-year = {2019}
-}
-@misc{lugaresi2019mediapipe,
-      title={MediaPipe: A Framework for Building Perception Pipelines}, 
-      author={Camillo Lugaresi and Jiuqiang Tang and Hadon Nash and Chris McClanahan and Esha Uboweja and Michael Hays and Fan Zhang and Chuo-Ling Chang and Ming Guang Yong and Juhyun Lee and Wan-Teh Chang and Wei Hua and Manfred Georg and Matthias Grundmann},
-      year={2019},
-      eprint={1906.08172},
-      archivePrefix={arXiv},
-      primaryClass={cs.DC}
-}
-@inproceedings{wang2023yolov7,
-  title={{YOLOv7}: Trainable bag-of-freebies sets new state-of-the-art for real-time object detectors},
-  author={Wang, Chien-Yao and Bochkovskiy, Alexey and Liao, Hong-Yuan Mark},
-  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
-  year={2023}
-}
+1. **GolfDB: A Video Database for Golf Swing Sequencing**  
+   McNally, William et al. (2019). "GolfDB: A Video Database for Golf Swing Sequencing." In: The IEEE Conference on Computer Vision and Pattern Recognition (CVPR) Workshops. June 2019.  
+   [Paper Link](https://github.com/wmcnally/golfdb)
+
+2. **MediaPipe: A Framework for Perceiving and Processing Reality**  
+   Lugaresi, Camillo et al. (2019). "MediaPipe: A Framework for Perceiving and Processing Reality." In: Third Workshop on Computer Vision for AR/VR at IEEE Computer Vision and Pattern Recognition (CVPR) 2019.  
+   [PDF Link](https://mixedreality.cs.cornell.edu/s/NewTitle_May1_MediaPipe_CVPR_CV4ARVR_Workshop_2019.pdf)
+
+3. **YOLOv7: Trainable Bag-of-Freebies Sets New State-of-the-Art for Real-Time Object Detectors**  
+   Wang, Chien-Yao et al. (2023). "YOLOv7: Trainable Bag-of-Freebies Sets New State-of-the-Art for Real-Time Object Detectors." In: Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), 2023.  
+   [Conference Link or Paper Link](https://github.com/WongKinYiu/yolov7?fbclid=IwAR1mtD0Vq5tlIPLxnPshr4CkKSNkpwOx4yWXuTxRjGctCGIAU6-hdPQI6pM)
 
 
