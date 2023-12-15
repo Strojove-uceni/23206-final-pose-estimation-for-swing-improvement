@@ -5,11 +5,13 @@ import csv
 import datetime
 
 class MediaPipe_PoseEstimation:
+    # Initializes the MediaPipe_PoseEstimation class
     def __init__(self, input_file, csv_file_name, output_video_name):
         self.input_file = input_file
         self.csv_file_name = csv_file_name
         self.output_video_name = output_video_name
-
+        
+    # Calculates the angle between three points using the arctangent method
     def calculate_angle(self, a, b, c):
         radians = math.atan2(c.y - b.y, c.x - b.x) - math.atan2(a.y - b.y, a.x - b.x)
         angle = math.degrees(radians)
@@ -18,6 +20,7 @@ class MediaPipe_PoseEstimation:
             angle = 360 - angle
         return angle
 
+    # Calculates the angle between two points and one of the axes
     def calculate_angle2(self, x1, y1, x2, y2, axis='x', orientation='right'):
         if (math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2) * x1) != 0:
             if axis == 'x':
@@ -38,11 +41,13 @@ class MediaPipe_PoseEstimation:
 
         return angle
 
+    # Calculates the midpoint between two points
     def middle_point(self, a, b):
         midpoint_x = (a.x + b.x) / 2
         midpoint_y = (a.y + b.y) / 2
         return midpoint_x, midpoint_y
 
+    # Processes the input video, calculates pose statistics, and generates an output video and write the statistics into .csv file
     def process_video(self):
         mp_drawing = mp.solutions.drawing_utils
         mp_pose = mp.solutions.pose

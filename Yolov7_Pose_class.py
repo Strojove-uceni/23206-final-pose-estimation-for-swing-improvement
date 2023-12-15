@@ -13,6 +13,7 @@ import datetime
 import numpy as np
 
 class Yolov7_PoseEstimation:
+    # Initializes instance variables for input/output files.
     def __init__(self, file_path, csv_file_path, output_video_path):
         self.file_path = file_path
         self.csv_file_path = csv_file_path
@@ -28,6 +29,7 @@ class Yolov7_PoseEstimation:
             model.half().to(self.device)
         return model
 
+    # Calculates the angle between three points using the arctangent method
     def calculate_angle(self, a_x, a_y, b_x, b_y, c_x, c_y):
         radians = math.atan2(c_y - b_y, c_x - b_x) - math.atan2(a_y - b_y, a_x - b_x)
         angle = math.degrees(radians)
@@ -36,6 +38,7 @@ class Yolov7_PoseEstimation:
             angle = 360 - angle
         return angle
 
+    # Calculates the angle between two points and one of the axes
     def calculate_angle2(self, x1, y1, x2, y2, axis='x', orientation='right'):
       if (math.sqrt((x2 - x1)**2 + (y2 - y1)**2) * x1) != 0:
           if axis == 'x':
@@ -56,11 +59,14 @@ class Yolov7_PoseEstimation:
 
       return angle
 
+    # Calculates the midpoint between two points
     def middle_point(self, a_x, a_y, b_x, b_y):
         midpoint_x = (a_x + b_x) / 2
         midpoint_y = (a_y + b_y) / 2
         return midpoint_x, midpoint_y
-
+    
+    # Runs inference on the YOLOv7 pose estimation model
+    # output: YOLOv7 output containing keypoints
     def run_inference(self, image):
         image = letterbox(image, 960, stride=64, auto=True)[0]
         image = transforms.ToTensor()(image)
@@ -74,7 +80,11 @@ class Yolov7_PoseEstimation:
             output, _ = self.model(image)
 
         return output, image
-
+    
+    # Saves keypoints obtained from YOLOv7 output
+    # kpts: Keypoints obtained from YOLOv7 output
+    # steps: Number of steps for extracting keypoints
+    # coords: Processed and filtered keypoints
     def save_keypoints(self, kpts, steps):
         num_kpts = len(kpts) // steps
         coords = []
@@ -95,6 +105,9 @@ class Yolov7_PoseEstimation:
 
         return coords
 
+    # Draws keypoints on the input image
+    # nimg: Annotated image with keypoints
+    # all_coords: List of keypoints for each detected person
     def draw_keypoints(self, output, image):
         output = non_max_suppression_kpt(output, 0.25, 0.65, nc=self.model.yaml['nc'], nkpt=self.model.yaml['nkpt'], kpt_label=True)
 
@@ -113,6 +126,9 @@ class Yolov7_PoseEstimation:
 
         return nimg, all_coords
 
+    # Writes pose data to the CSV file
+    # a: Index of the person in the video (for multiple detections)
+    # with each person there is a new .csv file created
     def write_csv_file(self, coordinates, a):
         scale_factor = 0.68
 
@@ -145,6 +161,7 @@ class Yolov7_PoseEstimation:
             scaled_coordinates = coordinates[:6] + [int(coord * scale_factor) for coord in coordinates[6:]]
             writer.writerow(scaled_coordinates)
 
+    # Processes the input video, calculates pose statistics, and generates an output video and write the statistics into .csv file
     def process_video(self):
         cap = cv2.VideoCapture(self.file_path)
         fourcc = cv2.VideoWriter_fourcc(*'MP4V')
@@ -254,7 +271,8 @@ class Yolov7_PoseEstimation:
                                         int(midpoint_x), int(midpoint_y)], a)
 
                     a += 1
-
+                
+                # plot the statistics just for one person in the video (otherwise it will be mess)
                 if a == 1:
                     cv2.putText(frame, f'Shoulders inclination: {shoulders_inclination:.2f}', (10, 20),
                                 cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
