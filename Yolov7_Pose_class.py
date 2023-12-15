@@ -145,7 +145,7 @@ class Yolov7_PoseEstimation:
             scaled_coordinates = coordinates[:6] + [int(coord * scale_factor) for coord in coordinates[6:]]
             writer.writerow(scaled_coordinates)
 
-    def pose_estimation(self):
+    def process_video(self):
         cap = cv2.VideoCapture(self.file_path)
         fourcc = cv2.VideoWriter_fourcc(*'MP4V')
         out = cv2.VideoWriter(self.output_video_path, fourcc, 30.0, (int(cap.get(3)), int(cap.get(4))))
